@@ -1,0 +1,100 @@
+/* =========================================================
+   컨야드 랜딩 v3.1 - v3.0(하림지주형) 위에 덮어씀
+   1) 첫 화면 1번 장면 = 선석조회 5초 영상(media/berth_*.mp4) + 고정 큰 제목
+      영상 원본(다시 만들 때): _영상원본/berth.html, render.py
+   2) 02 선석조회 섹션: 왼쪽 4단계 설명 + 오른쪽 화면 예시(04/05와 같은 짜임)
+   근거: CY_BthLnk(선석배정 연동), CY_CutDsh(CY대시보드) 설명서. 버튼 빛번짐 없음(전역 규칙).
+   ========================================================= */
+
+/* ---------- 1. 첫 화면 선석조회 영상 ---------- */
+.vvid { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; background: #0b1018; }
+.vslide--berth .vslide__media::after { background: none; }   /* 영상 안에 어둡게 깔림이 들어 있음 */
+@media (max-width: 767px) { .vvid { object-position: 50% 100%; } }
+
+/* ---------- 2. 02 선석조회 ---------- */
+.berth { background: #fff; }
+.berth__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 6fr); gap: 72px; align-items: center; }
+.berth .ttl-lead { margin-top: 24px; }
+.bpts { display: grid; gap: 8px; margin-top: 44px; }
+.bpt { display: flex; gap: 18px; width: 100%; padding: 20px 24px; border: 0; border-left: 2px solid var(--line, #E5E7EB); border-radius: 0 14px 14px 0; background: transparent; text-align: left; cursor: pointer; transition: background .3s, border-color .3s; }
+.bpt__no { flex: none; padding-top: 3px; font-family: var(--font-en); font-size: 15px; font-weight: 700; color: var(--t5); transition: color .3s; }
+.bpt__body { display: grid; gap: 6px; }
+.bpt b { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--t3); transition: color .3s; }
+.bpt__body > span { font-size: 16px; line-height: 1.6; color: var(--t5); word-break: keep-all; transition: color .3s; }
+.bpt em { font-style: normal; font-weight: 700; }
+.bpt:hover b { color: var(--t1); }
+.bpt.is-on { border-left-color: var(--main); background: #FFF6F0; }
+.bpt.is-on .bpt__no { color: var(--main); }
+.bpt.is-on b { color: var(--t1); }
+.bpt.is-on .bpt__body > span { color: var(--t4); }
+.bpt.is-on em { color: var(--main-deep); }
+
+.shot--berth { --pb: 32px; max-width: 760px; margin-left: auto; }
+.shot--berth::before { content: ""; position: absolute; z-index: -1; inset: 28px -20px 0 48px; border-radius: 28px; background: linear-gradient(135deg, #FFF1E8 0%, #EAF0F8 100%); }
+.shot--berth .screen__body { display: grid; gap: 12px; }
+.shot--berth .ui-toolbar .ui-btn--primary { margin-left: auto; }
+.bal { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 11px 14px; border-radius: 8px; border: 1px solid #F3B8B1; background: #FDECEA; font-size: 14px; color: #3A4452; transition: box-shadow .3s, opacity .3s; }
+.bal b { color: #D93A2B; font-weight: 800; }
+.bal__t { font-weight: 700; color: #111; }
+.bal__n { margin-left: auto; padding: 2px 8px; border-radius: 4px; background: #D93A2B; color: #fff; font-size: 12px; font-weight: 700; }
+.ui-table--berth .ui-row { grid-template-columns: 1.25fr .8fr 1.15fr .8fr .6fr; }
+.ui-table--berth .ui-row > span { transition: background .3s, color .3s; }
+.ui-table--berth .b { font-weight: 700; color: #0B1F3A; }
+.ui-table--berth .r { font-weight: 800; color: #D93A2B; }
+.ui-table--berth .o { font-weight: 800; color: #D97706; }
+.ui-table--berth .ui-row.is-alert { background: #FFF5F4; }
+.pop--berth { width: 330px; }
+.pop--berth .pop__tag { background: #0B1F3A; }
+/* 왼쪽에서 고른 단계에 맞춰 화면의 해당 부분을 밝힘 */
+.shot--berth [class*="c-"] { position: relative; }
+.shot--berth.hl-1 .ui-row .c-cut, .shot--berth.hl-2 .ui-row .c-bd, .shot--berth.hl-3 .ui-row .c-left { background: #FFF1E3; border-radius: 4px; outline: 6px solid #FFF1E3; }
+.shot--berth .bal, .shot--berth .pop--berth { opacity: .55; }
+.shot--berth.hl-4 .bal, .shot--berth.hl-4 .pop--berth { opacity: 1; }
+.shot--berth.hl-4 .bal { box-shadow: 0 0 0 3px rgba(217,58,43,.18); }
+.shot--berth .callout { transition: opacity .3s; }
+.shot--berth.hl-3 .callout, .shot--berth.hl-4 .callout { opacity: .35; }
+.berth__limit { max-width: 980px; margin: 56px 0 0; font-size: 14px; line-height: 1.7; color: var(--t5); }
+.berth__limit a { color: var(--main-deep); text-decoration: underline; }
+
+@media (max-width: 1199px) {
+  .berth__grid { grid-template-columns: 1fr; gap: 48px; }
+  .shot--berth { margin-inline: auto; }
+}
+@media (max-width: 767px) {
+  .bpts { margin-top: 28px; }
+  .bpt { padding: 16px 16px; gap: 12px; }
+  .bpt b { font-size: 17px; }
+  .bpt__body > span { font-size: 14.5px; }
+  .ui-table--berth .ui-row { grid-template-columns: 1.3fr 1fr .7fr; }
+  .ui-table--berth .ui-row > span:nth-child(2), .ui-table--berth .ui-row > span:nth-child(5) { display: none; }
+  .bal__n { margin-left: 0; }
+  .pop--berth { position: static; width: auto; margin-top: 12px; }
+  .berth__limit { margin-top: 36px; }
+}
+@media (prefers-reduced-motion: reduce) { .bpt, .bal, .callout { transition: none; } }
+
+/* ---------- 3. 그 밖의 v3.1 바꾼 곳 ---------- */
+.ui-table--hist .ui-row { grid-template-columns: 1fr 1.6fr .8fr .5fr; }
+.tour__img img { object-position: 55% 50%; }
+
+/* v3.2: 제품 이름을 컨야드로 변경(2026-11-24) */
+/* v3.2: 버튼 빛번짐(주황 그림자) 제거 - 전역 디자인 규칙 */
+.fquick__cta { box-shadow: 0 4px 10px rgba(0,0,0,0.18); }
+.cta-line { box-shadow: 0 6px 16px rgba(0,0,0,0.10); }
+/* v3.2: 컨야드 로고(심볼 + 글자) */
+.hd__logo { display: inline-flex; align-items: center; gap: 10px; font-family: "Pretendard Variable", Pretendard, sans-serif; font-weight: 800; letter-spacing: -0.04em; }
+.hd__logo-sym { width: 40px; height: 40px; flex: none; }
+.hd__logo-txt em, .ft__logo em { font-style: normal; color: var(--main); }
+.hd__logo span:not(.hd__logo-txt) { color: inherit; }
+.ft__logo { display: inline-flex; align-items: center; gap: 10px; margin-top: 40px; font-size: 26px; font-weight: 800; letter-spacing: -0.04em; color: #fff; }
+.ft__logo img { width: 36px; height: 36px; }
+.ft__logo + .ft__copy { margin-top: 16px; }
+@media (max-width: 767px) { .hd__logo-sym { width: 32px; height: 32px; } .hd__logo { gap: 8px; } }
+.hd__logo .hd__logo-txt { color: #fff; }
+.hd__logo .hd__logo-txt em { color: var(--main); }
+/* v3.2: 로고 다시 - 야드 네 칸 심볼 + 한 가지 색 글자 */
+.hd__logo { gap: 11px; font-size: 30px; letter-spacing: -0.055em; }
+.hd__logo-sym { width: 30px; height: 30px; }
+.ft__logo { gap: 10px; font-size: 26px; letter-spacing: -0.055em; }
+.ft__logo img { width: 26px; height: 26px; }
+@media (max-width: 767px) { .hd__logo { font-size: 24px; gap: 9px; } .hd__logo-sym { width: 24px; height: 24px; } }

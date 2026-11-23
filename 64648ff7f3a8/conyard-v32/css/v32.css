@@ -1,0 +1,142 @@
+/* ==========================================================================
+   컨야드 랜딩 v3.2 - v3.1 위에 덮어씀
+   1) 첫 화면 선석조회 장면: 제목이 영상 속 표와 겹치지 않게 글자 크기 제한, 태블릿은 세로 영상
+   2) 02 선석조회: 04(왼쪽 목록 + 오른쪽 표 화면)와 겹치지 않게
+      흰 바탕(다른 섹션과 같은 흐름) + 가운데 제목 + 숫자 4개 줄 + 선석 사진 위 「마감 시간 막대」
+   ========================================================================== */
+
+/* ---------- 1) 첫 화면 ---------- */
+/* v3.2: 선석조회 장면도 다른 장면과 같은 글자 크기(var(--f90)) - 표와 안 겹치게 줄 길이를 줄임 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .visual__box { height: auto; min-height: 0; aspect-ratio: 4 / 5; max-height: none; }
+  .vvid { object-position: 50% 100%; }
+  .vslide__text { padding-top: 120px; }
+  .vtext__h { font-size: 5vw; margin-bottom: 32px; }
+}
+
+/* ---------- 2) 02 선석조회 ---------- */
+.berth2 { --red: #E5484D; --amber: #F59E0B; --navy: #0B1F3A; position: relative; padding: var(--gap150) 0; background: #fff; }
+.b2__head { text-align: center; }
+.b2__head h2 { margin-top: 22px; font-size: var(--f50, 42px); font-weight: 700; line-height: 1.35; letter-spacing: -0.03em; color: var(--t1); word-break: keep-all; }
+.b2__lead { margin-top: 22px; font-size: 18px; line-height: 1.7; color: var(--t4); word-break: keep-all; }
+
+/* 숫자 4개 줄 (그래프 위) */
+.b2__nums { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 1280px; margin: 64px auto 0; padding: 0; list-style: none; }
+.b2__nums li { padding: 4px 28px 0; }
+.b2__nums li + li { border-left: 1px solid var(--line); }
+.b2__n { font-size: 17px; font-weight: 700; color: var(--main); }
+.b2__n b { display: inline-block; min-width: 1ch; margin-right: 4px; font-family: var(--font-en); font-size: 54px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.b2__nums h3 { margin-top: 16px; font-size: 20px; font-weight: 700; color: var(--t1); }
+.b2__nums li > p:last-child { margin-top: 8px; font-size: 16px; line-height: 1.65; color: var(--t4); word-break: keep-all; }
+
+/* 선석 사진 무대 */
+.b2__stage { position: relative; max-width: 1400px; margin: 64px auto 0; padding: 72px 60px; border-radius: 28px; overflow: hidden; isolation: isolate;
+  background: url(../img/berth-aerial.jpg) 50% 45% / cover no-repeat; }
+.b2__stage::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(8,14,24,.38) 0%, rgba(8,14,24,.58) 100%); }
+
+/* 그래프 카드 */
+.b2__card { max-width: 1080px; margin: 0 auto; padding: 36px 44px 34px; border-radius: 22px; background: #fff; box-shadow: 0 16px 40px rgba(0,0,0,.18); transition: opacity .4s; }
+.b2__card.is-shake { animation: b2shake .45s ease; }
+@keyframes b2shake { 0%,100% { transform: none; } 20% { transform: translateX(-6px); } 40% { transform: translateX(5px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(2px); } }
+.b2__top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-height: 40px; }
+.b2__cno { font-family: var(--font-en); font-size: 23px; font-weight: 800; letter-spacing: .01em; color: var(--t1); }
+.b2__ves { padding: 4px 10px; border-radius: 6px; background: #F1F3F6; font-size: 15px; font-weight: 600; color: #334155; }
+.b2__sync { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 99px; background: #FFF1E8; font-size: 14px; font-weight: 700; color: var(--main-deep);
+  opacity: 0; transform: translateY(-8px); transition: opacity .35s, transform .35s; }
+.b2__sync svg { width: 16px; height: 16px; }
+.b2__card.is-sync .b2__sync { opacity: 1; transform: none; }
+.b2__card.is-sync .b2__sync svg { animation: b2spin .9s linear 2; }
+@keyframes b2spin { to { transform: rotate(360deg); } }
+.b2__state { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; font-size: 16px; font-weight: 700; color: #B45309; opacity: 0; transition: opacity .3s, color .3s; }
+.b2__card.is-grow .b2__state { opacity: 1; }
+.b2__dot { width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
+.b2__card.is-pulled .b2__dot { animation: b2beat .7s ease 3; }
+@keyframes b2beat { 50% { transform: scale(1.7); } }
+.b2__replay { padding: 7px 14px; border: 1px solid #D5D9E0; border-radius: 99px; background: #fff; font-size: 14px; font-weight: 600; color: var(--t3); cursor: pointer; }
+.b2__replay:hover { border-color: var(--t1); color: var(--t1); }
+
+.b2__axis { position: relative; margin-top: 40px; padding-bottom: 6px; }
+.b2__ticks { position: relative; height: 22px; }
+.b2__ticks span { position: absolute; left: calc(var(--p) * 100%); transform: translate(-50%, 6px); font-family: var(--font-en); font-size: 14px; font-weight: 600; color: var(--t5); white-space: nowrap;
+  opacity: 0; transition: opacity .35s calc(var(--i) * 70ms), transform .35s calc(var(--i) * 70ms); }
+.b2__ticks span:first-child { transform: translate(0, 6px); }
+.b2__ticks span:last-child { transform: translate(-100%, 6px); }
+.b2__card.is-on .b2__ticks span { opacity: 1; transform: translate(-50%, 0); }
+.b2__card.is-on .b2__ticks span:first-child { transform: none; }
+.b2__card.is-on .b2__ticks span:last-child { transform: translate(-100%, 0); }
+.b2__track { position: relative; height: 64px; margin-top: 12px; border-radius: 12px;
+  background: repeating-linear-gradient(90deg, #E6E9EE 0 1px, transparent 1px 10%), #F4F6F8; }
+.b2__bar { position: absolute; top: 8px; bottom: 8px; left: 3.33%; width: 0; display: flex; align-items: center; justify-content: flex-end; overflow: hidden; border-radius: 8px;
+  background-color: var(--amber); transition: width 1.2s cubic-bezier(.22,1,.36,1), background-color .4s; }
+.b2__left { padding-right: 16px; font-size: 17px; font-weight: 800; color: #111; white-space: nowrap; transition: color .3s; }
+.b2__left-v { font-family: var(--font-en); font-variant-numeric: tabular-nums; }
+.b2__now, .b2__cut, .b2__old { position: absolute; top: -6px; bottom: -6px; width: 0; font-style: normal; }
+.b2__now { left: 3.33%; border-left: 2px dashed #94A3B8; opacity: 0; transition: opacity .3s .2s; }
+.b2__card.is-on .b2__now { opacity: 1; }
+.b2__now span { position: absolute; top: calc(100% + 10px); left: 0; transform: translateX(-12px); font-size: 14px; font-weight: 600; color: var(--t4); white-space: nowrap; }
+.b2__cut { left: 80%; border-left: 3px solid var(--t1); opacity: 0; transform: scaleY(.2); transform-origin: 50% 50%;
+  transition: left .9s cubic-bezier(.34,1.56,.64,1), opacity .25s, transform .35s cubic-bezier(.34,1.56,.64,1); }
+.b2__card.is-grow .b2__cut { opacity: 1; transform: none; transition-delay: 0s, .9s, .9s; }
+.b2__cut-t { position: absolute; top: calc(100% + 10px); left: 0; transform: translateX(-50%); padding: 6px 12px; border-radius: 8px; background: var(--t1); font-size: 15px; font-weight: 700; color: #fff; white-space: nowrap; transition: background-color .3s; }
+.b2__cut-v { font-family: var(--font-en); }
+.b2__old { left: 80%; border-left: 2px dashed #CBD5E1; opacity: 0; transition: opacity .3s; }
+.b2__old span { position: absolute; top: calc(100% + 16px); left: 0; transform: translateX(-50%); font-family: var(--font-en); font-size: 15px; font-weight: 600; color: var(--t5); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 2px; }
+
+.b2__alert { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 72px; padding: 16px 20px; border-left: 6px solid var(--red); border-radius: 12px; background: #FFF4F4;
+  opacity: 0; transform: translateY(16px); transition: opacity .4s, transform .5s cubic-bezier(.34,1.56,.64,1); }
+.b2__alert b { font-size: 18px; font-weight: 800; color: #D92D20; }
+.b2__alert-t { font-family: var(--font-en); font-size: 17px; font-weight: 700; color: var(--t1); }
+.b2__alert-go { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; padding: 8px 14px; border-radius: 99px; background: var(--navy); font-size: 15px; font-weight: 700; color: #fff;
+  opacity: 0; transform: translateX(24px); transition: opacity .35s .45s, transform .5s .45s cubic-bezier(.34,1.56,.64,1); }
+.b2__alert-go svg { width: 16px; height: 16px; }
+
+/* 단계별 상태 */
+.b2__card.is-grow .b2__bar { width: 76.67%; }
+.b2__card.is-pulled .b2__cut { left: 40%; }
+.b2__card.is-pulled .b2__bar { width: 36.67%; background-color: var(--red); transition: width .9s cubic-bezier(.34,1.56,.64,1), background-color .3s; }
+.b2__card.is-pulled .b2__left { color: #fff; }
+.b2__card.is-pulled .b2__cut-t { background: var(--red); }
+.b2__card.is-pulled .b2__old { opacity: 1; }
+.b2__card.is-pulled .b2__state { color: var(--red); }
+.b2__card.is-alert .b2__alert, .b2__card.is-alert .b2__alert-go { opacity: 1; transform: none; }
+.b2__card.is-out { opacity: 0; }
+
+.berth2 .berth__limit { max-width: 1280px; margin: 40px auto 0; text-align: center; }
+
+@media (max-width: 1023px) {
+  .b2__nums { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
+  .b2__nums li:nth-child(3) { border-left: 0; }
+  .b2__stage { padding: 48px 28px; }
+}
+@media (max-width: 767px) {
+  .b2__lead { font-size: 16px; }
+  .b2__nums { grid-template-columns: 1fr 1fr; margin-top: 44px; row-gap: 28px; }
+  .b2__nums li { padding: 0 14px; }
+  .b2__nums li:nth-child(odd) { padding-left: 0; }
+  .b2__n { font-size: 14px; }
+  .b2__n b { font-size: 38px; }
+  .b2__nums h3 { font-size: 16px; margin-top: 10px; }
+  .b2__nums li > p:last-child { font-size: 14px; }
+  .b2__stage { margin-top: 44px; padding: 28px 12px; border-radius: 20px; }
+  .b2__card { padding: 22px 16px 20px; border-radius: 16px; }
+  .b2__cno { font-size: 18px; }
+  .b2__sync { order: 5; font-size: 12px; padding: 5px 10px; }
+  .b2__state { margin-left: 0; order: 3; font-size: 14px; }
+  .b2__replay { order: 4; margin-left: auto; padding: 6px 12px; font-size: 13px; }
+  .b2__ticks span:nth-child(even) { display: none; }
+  .b2__ticks span { font-size: 12px; }
+  .b2__track { height: 54px; }
+  .b2__left { font-size: 14px; padding-right: 10px; }
+  .b2__now span { font-size: 12px; }
+  .b2__cut-t { font-size: 13px; padding: 5px 9px; }
+  .b2__alert { margin-top: 64px; padding: 14px; }
+  .b2__alert b { font-size: 16px; }
+  .b2__alert-go { margin-left: 0; font-size: 14px; }
+  .berth2 .berth__limit { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .b2__card *, .b2__card { transition: none !important; animation: none !important; }
+}
+
+/* 02 위 여백: 01(흰 바탕)의 아래 여백과 겹쳐 두 배가 되므로 0 -> 섹션 사이 간격이 다른 곳과 같은 150 */
+.berth2 { padding-top: 0; }

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="컨야드 심볼">
+  <!-- 야드의 네 칸 중 찾는 컨테이너 한 칸(주황) -->
+  <rect x="2" y="2" width="13" height="13" rx="3.5" fill="#FFFFFF"/>
+  <rect x="17" y="2" width="13" height="13" rx="3.5" fill="#F26B1D"/>
+  <rect x="2" y="17" width="13" height="13" rx="3.5" fill="#FFFFFF"/>
+  <rect x="17" y="17" width="13" height="13" rx="3.5" fill="#FFFFFF"/>
+</svg>
