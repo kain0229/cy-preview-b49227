@@ -140,3 +140,29 @@
 
 /* 02 위 여백: 01(흰 바탕)의 아래 여백과 겹쳐 두 배가 되므로 0 -> 섹션 사이 간격이 다른 곳과 같은 150 */
 .berth2 { padding-top: 0; }
+
+/* ===== v3.2 모바일 정리(2026-11-27): 좁은 화면에서 잘리던 곳 바로잡기 ===== */
+@media (max-width: 767px) {
+  /* 첫 장면 아래 문구: 오른쪽 끝이 잘리던 것 */
+  .std { font-size: clamp(22px, 6.4vw, 28px); }
+  .philo__h2 { margin-bottom: 0; }
+
+  /* 03 하루 흐름: 옆으로 넘치던 6칸 -> 세로 목록(손가락으로 뒤집을 수 없으니 뒷면 내용을 바로 보여 줌) */
+  .process__box { overflow: visible; }
+  .pitems { width: 100%; grid-template-columns: 1fr; row-gap: 12px; margin-top: 32px; transform: none !important; }
+  .pitem__info { padding: 0; margin: 0; transform: none !important; }
+  .pitem__info::after, .pitem__off, .pitem__bottom { display: none; }
+  .pitem__hover { position: relative; inset: auto; opacity: 1; transform: none; align-items: flex-start; text-align: left; padding: 20px 20px 18px; }
+  .pitem__hover hr { margin: 10px 0; }
+  .pitem__hover ul { justify-content: flex-start; }
+
+  /* 04 장면, 05 사람별 화면: 글과 화면 예시를 위아래로 */
+  .core .core-scene, .core.is-pinned .core-scene, .roles .role-panel { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .core .core-scene__visual, .roles .role-panel__visual { width: 100%; min-width: 0; overflow: hidden; }
+  .shot--core, .shot--role { margin-inline: 0; }
+
+  /* 떠 있는 상담·맨위 단추: 글을 덜 가리게 작게 */
+  .fquick { right: 14px; bottom: 16px; gap: 10px; }
+  .fquick__cta { width: 56px; height: 56px; font-size: 14px; }
+  .fquick__top { width: 44px; height: 44px; }
+}
